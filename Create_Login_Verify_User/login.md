@@ -3,12 +3,12 @@
 request
 
 ```http request
-POST http://localhost:8080/api/auth-login
+POST http://localhost:8060/api/auth-login
 Content-Type: application/json
 
 {
-    "email": "",
-    "password": ""
+    "email": "{{email}}",
+    "password": "{{password}}"
 }
 ```
 

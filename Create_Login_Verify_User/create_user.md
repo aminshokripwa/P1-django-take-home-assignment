@@ -3,7 +3,7 @@
 request
 
 ```http request
-POST http://localhost:8080/api/user
+POST http://localhost:8060/api/user
 Content-Type: application/json
 
 {

@@ -3,7 +3,7 @@
 request
 
 ```http request
-POST http://localhost:8080/api/auth/renew-login
+POST http://localhost:8060/api/auth/renew-login
 Content-Type: application/json
 xxx-token: {{token}}
 

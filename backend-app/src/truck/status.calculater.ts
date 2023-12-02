@@ -84,9 +84,9 @@ export function facilityTypeCalculater  (facilityType: string | null)  {
 export function biggerThanMinDistanceCalculater  (biggerThanMinDistance: number | null)  { 
     let truckMinDistance ;
     if(biggerThanMinDistance && !isNaN(biggerThanMinDistance)  && biggerThanMinDistance > 0 ){
-        truckMinDistance = " distanceMile >= "+biggerThanMinDistance+" "  ;
+        truckMinDistance = " distanceOnmile >= "+biggerThanMinDistance+" "  ;
     }else{
-        truckMinDistance = " distanceMile >= 0 "  ;
+        truckMinDistance = " distanceOnmile >= 0 "  ;
     }
     return truckMinDistance; 
 } 
@@ -99,7 +99,7 @@ export function biggerThanMinDistanceCalculater  (biggerThanMinDistance: number 
 export function lessThanMaxDistanceCalculater  (lessThanMaxDistance: number | null)  { 
     let truckMaxDistance ;
     if(lessThanMaxDistance && !isNaN(lessThanMaxDistance)  && lessThanMaxDistance > 0 ){
-        truckMaxDistance = " AND distanceMile <= "+lessThanMaxDistance+" "  ;
+        truckMaxDistance = " AND distanceOnmile <= "+lessThanMaxDistance+" "  ;
     }
     return truckMaxDistance; 
 } 
@@ -121,6 +121,11 @@ export function dataLastCalculater  (trucksInformation: any , checkExpirationDat
 
     for (var i = 0; i < trucksInformation[0].length; i++) {
       
+        if (j > 5){
+            break;
+        }
+        
+
         if(checkExpirationDate && checkExpirationDate.length > 0 ){
 
             let d1 = trucksInformation[0][i].ExpirationDate ;

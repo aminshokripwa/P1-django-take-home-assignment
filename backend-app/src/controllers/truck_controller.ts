@@ -51,11 +51,11 @@ export const showTruckInformation = async (req: Request, res: Response): Promise
             radians(?)) + 
             sin(radians(?)) * 
             sin(radians(latitude )))
-            ) AS distanceMile
+            ) AS distanceOnmile
             FROM food_truck_data 
             WHERE  applicant IS NOT NULL `+truckstatus+` `+truckfoodItems+` `+truckaddressDescription+` `+truckapplicant+` `+truckfacilityType+` 
             HAVING `+truckMinDistance+` `+truckMaxDistance+` 
-            ORDER BY distanceMile LIMIT 0, 30;`, [ latitude , longitude ,  latitude ]);
+            ORDER BY distanceOnmile LIMIT 0, 50;`, [ latitude , longitude ,  latitude ]);
 
         conn.end();
 
@@ -112,7 +112,7 @@ export const searchTruckInformation = async (req: Request, res: Response): Promi
             locationid , Applicant , FacilityType , LocationDescription AS Description , Address , Status , Latitude , Longitude , DATE_FORMAT(STR_TO_DATE(ExpirationDate, '%m/%d/%Y %H:%i'), '%m-%d-%Y') AS ExpirationDate,  
             FROM food_truck_data 
             WHERE  applicant IS NOT NULL AND ( applicant LIKE '%?%' )  `+truckstatus+` `+truckfoodItems+`  `+truckfacilityType+` 
-            ORDER BY distanceMile LIMIT 0, 30;`, [ req.params.applicant]);
+            ORDER BY Applicant LIMIT 0, 50;`, [ req.params.applicant]);
 
         }else{
 
@@ -120,7 +120,7 @@ export const searchTruckInformation = async (req: Request, res: Response): Promi
             locationid , Applicant , FacilityType , LocationDescription AS Description , Address , Status , Latitude , Longitude , DATE_FORMAT(STR_TO_DATE(ExpirationDate, '%m/%d/%Y %H:%i'), '%m-%d-%Y') AS ExpirationDate,  
             FROM food_truck_data 
             WHERE  applicant IS NOT NULL AND ( Address LIKE '%?%' OR LocationDescription LIKE '%?%' )  `+truckstatus+` `+truckfoodItems+`  `+truckfacilityType+` 
-            ORDER BY distanceMile LIMIT 0, 30;`, [ req.params.address , req.params.address ]);
+            ORDER BY Address LIMIT 0, 50;`, [ req.params.address , req.params.address ]);
 
         }
 

@@ -1,6 +1,6 @@
 ## Information
 
-> This section is for showing truck around special latitude/longitude and filter it or only search special aplicant or place
+> This section is for grt truck around special latitude/longitude and filter it or search by applicant and address
 
 ## List
 

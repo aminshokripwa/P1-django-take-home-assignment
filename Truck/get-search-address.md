@@ -3,7 +3,7 @@
 request
 
 ```http request
-GET http://localhost:8080/api/truck/get-search-address/{{address}}
+GET http://localhost:8060/api/truck/get-search-address/{{address}}
 Content-Type: application/json
 xxx-token: {{token}}
 
@@ -12,8 +12,8 @@ xxx-token: {{token}}
     "checkExpirationDate": {{false}} , // true or false
     "foodItems": "{{foodItems}}", // rice , chicken , or ... or null
     "facilityType": "{{facilityType}}", // Push Cart or ... // can be null
-    "addressDescription": "addressDescription", // address or place // can be null
-    "applicant": "applicant", // search for applicant name // can be null
+    "addressDescription": "{{addressDescription}}", // address or place // can be null
+    "applicant": "{{applicant}}" // search for applicant name // can be null
 }
 
 ```
@@ -44,7 +44,7 @@ Response
             "Latitude": "xxxx",
             "Longitude": "xxxx",
             "ExpirationDate": "mm-dd-yyyy",
-            "distanceMile": miles
+            "distanceOnmile": miles
         },
         {
            ... 
