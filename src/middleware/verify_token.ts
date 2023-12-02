@@ -8,7 +8,7 @@ interface IPayload {
 }
 
 /**
- * verify is token right
+ * Verify token
  * @param req 
  * @param res 
  * @param next 

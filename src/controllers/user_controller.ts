@@ -7,7 +7,7 @@ import { connect } from '../database/connection';
 import { User } from '../interfaces/user.interface';
 
 /**
- * 
+ * Creat new user
  * @param req 
  * @param res 
  * @returns 

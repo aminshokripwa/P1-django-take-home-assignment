@@ -1,86 +1,89 @@
 import { Request, Response } from 'express';
 
 /**
- * check status of truck
+ * Check status of truck
  * @param status 
  * @returns 
  */
 export function statusCalculater  (status: string | null)  { 
     let truckstatus ;
-    if(status && status != 'APPROVED'){
+    if(status && status.length > 0){
         truckstatus = " AND status = 'APPROVED' "  ;
     }
     return truckstatus; 
 } 
 
 /**
- * check truck food item
+ * Check truck food item
  * @param foodItems 
  * @returns 
  */
 export function foodItemsCalculater  (foodItems: string | null)  { 
     let truckfoodItems ;
-    if(foodItems){
+    if(foodItems && foodItems.length > 0 ){
         let myarray = foodItems.split(',');
         for(var i = 0; i < myarray.length ; i++)
         {
             if(i == 0){
-                truckfoodItems = " AND foodItems LIKE '%"+myarray[i]+"%' "  ;
+                truckfoodItems = " AND ( foodItems LIKE '%"+myarray[i]+"%' "  ;
             }else{
                 truckfoodItems = "foodItems LIKE '%"+myarray[i]+"%' OR " + truckfoodItems ;
             }
+        }
+        if(truckfoodItems){
+            truckfoodItems = truckfoodItems + " ) " ;
         }
     }
     return truckfoodItems; 
 } 
 
 /**
- * check truck adress or description
+ * Check truck adress or description
  * @param addressDescription 
  * @returns 
  */
 export function addressDescriptioCalculater  (addressDescription: string | null)  { 
     let truckaddressDescription ;
-    if(addressDescription){
-        truckaddressDescription = " AND Address LIKE '%"+addressDescription+"%' OR LocationDescription LIKE '%"+addressDescription+"%' " ;
+    if(addressDescription && addressDescription.length > 0 ){
+        truckaddressDescription = " AND ( Address LIKE '%"+addressDescription+"%' OR LocationDescription LIKE '%"+addressDescription+"%' ) " ;
     }
     return truckaddressDescription; 
 } 
 
 /**
- * check truck applicant
+ * Check truck applicant
  * @param applicant 
  * @returns 
  */
 export function applicantCalculater  (applicant: string | null)  { 
     let truckapplicant ;
-    if(applicant){
+    if(applicant && applicant.length > 0 ){
         truckapplicant = " AND applicant LIKE '%"+applicant+"%' " ;
     }
     return truckapplicant; 
 } 
 
 /**
- * check truck facility type
+ * Check truck facility type
  * @param facilityType 
  * @returns 
  */
 export function facilityTypeCalculater  (facilityType: string | null)  { 
     let truckfacilityType ;
-    if(facilityType){
+    if(facilityType && facilityType.length > 0 ){
         truckfacilityType = " AND facilityType = '"+facilityType+"' " ;
     }
     return truckfacilityType; 
 } 
 
 /**
- * bigger than for limit distance for example distance more than 10 mile 
+ * Bigger than for limit distance, for example distance more than 10 mile (16.09 km) 
  * @param biggerThanMinDistance 
  * @returns 
  */
 export function biggerThanMinDistanceCalculater  (biggerThanMinDistance: number | null)  { 
     let truckMinDistance ;
-    if(biggerThanMinDistance && !isNaN(biggerThanMinDistance) ){
+    if(biggerThanMinDistance && !isNaN(biggerThanMinDistance)  && biggerThanMinDistance > 0 ){
         truckMinDistance = " distanceMile >= "+biggerThanMinDistance+" "  ;
     }else{
         truckMinDistance = " distanceMile >= 0 "  ;
@@ -89,20 +92,20 @@ export function biggerThanMinDistanceCalculater  (biggerThanMinDistance: number 
 } 
 
 /**
- * less than for limit distance for example distance less than 10 mile
+ * Less than for limit distance, for example distance less than 10 mile (16.09 km)
  * @param lessThanMaxDistance 
  * @returns 
  */
 export function lessThanMaxDistanceCalculater  (lessThanMaxDistance: number | null)  { 
     let truckMaxDistance ;
-    if(lessThanMaxDistance && !isNaN(lessThanMaxDistance) ){
+    if(lessThanMaxDistance && !isNaN(lessThanMaxDistance)  && lessThanMaxDistance > 0 ){
         truckMaxDistance = " AND distanceMile <= "+lessThanMaxDistance+" "  ;
     }
     return truckMaxDistance; 
 } 
 
 /**
- * 
+ * Limit for trucks which their Expiration Date has not finished
  * @param trucksInformation 
  * @param checkExpirationDate 
  * @returns 
@@ -118,7 +121,7 @@ export function dataLastCalculater  (trucksInformation: any , checkExpirationDat
 
     for (var i = 0; i < trucksInformation[0].length; i++) {
       
-        if(checkExpirationDate){
+        if(checkExpirationDate && checkExpirationDate.length > 0 ){
 
             let d1 = trucksInformation[0][i].ExpirationDate ;
             let d2 = formattedDate ;

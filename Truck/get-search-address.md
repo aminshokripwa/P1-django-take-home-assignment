@@ -3,21 +3,17 @@
 request
 
 ```http request
-GET http://localhost:8080/api/truck
+GET http://localhost:8080/api/truck/get-search-address/{{address}}
 Content-Type: application/json
 xxx-token: {{token}}
 
 {
-    "latitude": "{{latitude}}", // latitude
-    "longitude": "{{longitude}}", // longitude
     "checkApproved": {{false}}, // true or false
     "checkExpirationDate": {{false}} , // true or false
     "foodItems": "{{foodItems}}", // rice , chicken , or ... or null
     "facilityType": "{{facilityType}}", // Push Cart or ... // can be null
     "addressDescription": "addressDescription", // address or place // can be null
     "applicant": "applicant", // search for applicant name // can be null
-    "biggerThanMinDistance": "MinDistance", // bigger than this distance // can be null
-    "lessThanMaxDistance": "MaxDistance" // less than this distance // can be null
 }
 
 ```
@@ -29,7 +25,7 @@ Response
 ```http request
 {
     "resp": true,
-    "message": "Get All nearest truck",
+    "message": "Find All nearest truck",
     "listTruck": [
         {
             "locationid": xxxx,
