@@ -4,6 +4,6 @@
 
 ## List
 
-- [Get nearby truck and filter](./get_truck.md)
+- [Get nearby truck and filter](./truck.md)
 - [Search truck based on applicant and filter](./get-search-applicant.md)
 - [Search truck address on applicant and filter](./get-search-address.md)

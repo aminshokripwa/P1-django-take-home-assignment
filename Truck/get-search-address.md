@@ -20,6 +20,13 @@ xxx-token: {{token}}
 
 > Get all trucks based on recived data
 
+1. If checkApproved is true, only the trucks that have Approved will be displayed, and if it is false, all trucks will be displayed.
+2. If checkExpirationDate is true, only the trucks that have not yet expired will be displayed, and if it is false, all trucks will be displayed.
+3. It's possible to insert all food Items like rice , chicken, and it will show trucks with this parameter.
+4. It's possible to limit facility type like Push Cart or ...
+5. It's possible to search in nearest truck's adress by addressDescription
+6. It's possible to search in nearest truck's name by applicant
+
 Response
 
 ```http request

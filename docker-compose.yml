@@ -1,0 +1,57 @@
+version: '3.8'
+
+networks:
+  rakt_nodejs_mysql_network:
+      driver: bridge
+    
+services:
+
+  mysqldbrakt:
+    image: mysql:latest
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_IN_DOCKER_PORT
+    volumes:
+      - ./sql/automatic.sql:/docker-entrypoint-initdb.d/dump.sql
+      - dbforrakt:/var/lib/mysql
+    networks:
+      - rakt_nodejs_mysql_network
+
+  app:
+    depends_on:
+      - mysqldbrakt
+    build: ./backend-app
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_IN_DOCKER_PORT
+    environment:
+      - DB_HOST=mysqldbrakt
+      - DB_USER=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_IN_DOCKER_PORT
+    stdin_open: true
+    tty: true
+    networks:
+      - rakt_nodejs_mysql_network
+
+  phpmyadmin:
+      container_name: phpmyadmin
+      restart: unless-stopped
+      env_file: ./.env
+      image: phpmyadmin/phpmyadmin
+      ports:
+        - $PHPADMIN_LOCAL_PORT:$PHPADMIN_IN_DOCKER_PORT
+      environment:
+          PMA_HOST: mysqldbrakt
+      depends_on:
+        - mysqldbrakt
+      networks:
+        - rakt_nodejs_mysql_network
+volumes: 
+  dbforrakt:
